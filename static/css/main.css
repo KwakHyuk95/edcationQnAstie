@@ -66,7 +66,7 @@
 }   
 .subject-section .subject-list li{
     float:left;
-    width:25.33%;
+    width:28.11%;
     margin: 30px;
 }
 
@@ -149,9 +149,9 @@
     width: 45%;
 }
 
-.text-center{
+.tintro{
     text-align: center;
-    margin-top: 150px;
+    margin: 100px auto;
 }
 
 .img-part img{
@@ -173,7 +173,7 @@
     overflow: hidden;
 }
 
-.col-3{
+.col3{
     width: 16.6%;
     float: left;
     text-align: center;

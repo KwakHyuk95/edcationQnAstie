@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href=".css/main.css">
-    <title>main</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block content %}
     <div class="con">
         <div class="nav">
             <ul>
@@ -43,7 +35,7 @@
                                 <h3>수학</h3>
                                 <span>WEB/PRINT</span>
                             </div>
-                            <img src="#" alt="">
+                            <img src="{% url 'mathboard:index' %}" alt="">
                         </a>
                     </li>
                     <li>
@@ -86,49 +78,49 @@
             </section>
             <article class="container"> 
                 <div class="row img-part">
-                    <div class="col-3">
+                    <div class="col3">
                         <figure>
                             <div class="circleimg">
                                 <img src="#" alt="">
                             </div>
                         </figure>
                     </div>
-                    <div class="col-3">
+                    <div class="col3">
                         <figure>
                             <div class="circleimg">
                                 <img src="#" alt="">
                             </div>
                         </figure>
                     </div>
-                    <div class="col-3">
+                    <div class="col3">
                         <figure>
                             <div class="circleimg">
                                 <img src="#" alt="">
                             </div>
                         </figure>
                     </div>
-                    <div class="col-3">
+                    <div class="col3">
                         <figure>
                             <div class="circleimg">
                                 <img src="#" alt="">
                             </div>
                         </figure>
                     </div>
-                    <div class="col-3">
+                    <div class="col3">
                         <figure>
                             <div class="circleimg">
                                 <img src="#" alt="">
                             </div>
                         </figure>
                     </div>
-                    <div class="col-3">
+                    <div class="col3">
                         <figure>
                             <div class="circleimg">
                                 <img src="#" alt="">
                             </div>
                         </figure>
                     </div>
-                    <div class="text-center">
+                    <div class="tintro">
                         <h2>선생님 소개</h2>
                         <p>각 과목별 선생님입니다.</p>
                         <p>질문에 대하여 친절하고 상세하게 알려주십니다.</p>                
@@ -140,5 +132,4 @@
 
         </div>
     </div>
-</body>
-</html>
+{% endblock %}
