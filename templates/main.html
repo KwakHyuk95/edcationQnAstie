@@ -1,14 +1,8 @@
 {% extends 'base.html' %}
 {% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <div class="con">
-        <div class="nav">
-            <ul>
-                <li><a href="#">홈</a></li>
-                <li><a href="#">문의</a></li>
-                <li><a href="login.html">로그인</a></li>
-                <li><a href="register.html">회원가입</a></li>
-            </ul>
-        </div>
         <div class="header">
             <h1>이미지 및 교육용 질답 사이트</h1>
         </div>
@@ -30,12 +24,12 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="{% url 'mathboard:index' %}">
                             <div class="info">
                                 <h3>수학</h3>
                                 <span>WEB/PRINT</span>
                             </div>
-                            <img src="{% url 'mathboard:index' %}" alt="">
+                            <img src="#" alt="">
                         </a>
                     </li>
                     <li>
@@ -81,49 +75,74 @@
                     <div class="col3">
                         <figure>
                             <div class="circleimg">
-                                <img src="#" alt="">
+                                <img src="{% static 'assets/t1.png' %}" alt="" id="img1">
                             </div>
                         </figure>
                     </div>
                     <div class="col3">
                         <figure>
                             <div class="circleimg">
-                                <img src="#" alt="">
+                                <img src="{% static 'assets/t2.png' %}" alt="" id="img2">
                             </div>
                         </figure>
                     </div>
                     <div class="col3">
                         <figure>
                             <div class="circleimg">
-                                <img src="#" alt="">
+                                <img src="{% static 'assets/t3.png' %}" alt="" id="img3">
                             </div>
                         </figure>
                     </div>
                     <div class="col3">
                         <figure>
                             <div class="circleimg">
-                                <img src="#" alt="">
+                                <img src="{% static 'assets/t4.png' %}" alt="" id="img4">
                             </div>
                         </figure>
                     </div>
                     <div class="col3">
                         <figure>
                             <div class="circleimg">
-                                <img src="#" alt="">
+                                <img src="{% static 'assets/t5.png' %}" alt="" id="img5">
                             </div>
                         </figure>
                     </div>
                     <div class="col3">
                         <figure>
                             <div class="circleimg">
-                                <img src="#" alt="">
+                                <img src="{% static 'assets/t6.png' %}" alt="" id="img6">
                             </div>
                         </figure>
                     </div>
-                    <div class="tintro">
+                    <div id="koi">
                         <h2>선생님 소개</h2>
-                        <p>각 과목별 선생님입니다.</p>
+                        <p>국어 과목 선생님입니다.</p>
                         <p>질문에 대하여 친절하고 상세하게 알려주십니다.</p>                
+                    </div>
+                    <div id="mai">
+                        <h2>선생님 소개</h2>
+                        <p>수학 과목 선생님입니다.</p>
+                        <p>질문에 대하여 알기쉽게 풀어 설명해주십니다.</p>
+                    </div>
+                    <div id="eni">
+                        <h2>선생님 소개</h2>
+                        <p>영어 과목 선생님입니다.</p>
+                        <p>질문에 대한 핵심을 잘 파악하고 명쾌하게 설명해주십니다.</p>
+                    </div>
+                    <div id="hii">
+                        <h2>선생님 소개</h2>
+                        <p>한국사 과목 선생님입니다.</p>
+                        <p>질문에 대하여 꼼꼼하고 자세하게 설명해주십니다.</p>
+                    </div>
+                    <div id="soi">
+                        <h2>선생님 소개</h2>
+                        <p>사회 탐구 과목 선생님입니다.</p>
+                        <p>질문에 대하여 정확히 설명해주십니다.</p>
+                    </div>
+                    <div id="sci">
+                        <h2>선생님 소개</h2>
+                        <p>과학 탐구 과목 선생님입니다.</p>
+                        <p>질문에 대하여 논리적으로 잘정리하여 설명해주십니다.</p>
                     </div>
                 </div>
             </article>

@@ -2,33 +2,6 @@
     margin: 0;
     padding: 0;
 }
-
-.nav{
-    border: 2px solid aqua;
-    height: 50px;
-}
-.nav ul{
-    list-style: none;
-    float: right;
-}
-
-.nav ul li{
-    display: inline;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-.nav ul li a{
-    text-decoration: none;
-    color: #3d3d3d;
-    width: 100px;
-    margin: 10px;
-    padding: 5px;
-}
-
-.nav ul li a:hover{
-    border-bottom: 3px solid #3d3d3d;
-}
 .header{
     border: 2px solid red;
     height: 300px;
@@ -149,11 +122,6 @@
     width: 45%;
 }
 
-.tintro{
-    text-align: center;
-    margin: 100px auto;
-}
-
 .img-part img{
     width: 300px;
 
@@ -165,9 +133,47 @@
     border-radius: 50%;
     overflow: hidden;
     margin: auto;
-    border: solid red;
+    background-color: gray;
 }
-
+.img-part .circleimg > img{
+    width: 100px;
+}
+#img1{
+    filter: unset;
+}
+#img1.grayc{
+    filter: grayscale(100%);
+}
+#img2{
+    filter: grayscale(100%);
+}
+#img2.grayc{
+    filter: unset;
+}
+#img3{
+    filter: grayscale(100%);
+}
+#img3.grayc{
+    filter: unset;
+}
+#img4{
+    filter: grayscale(100%);
+}
+#img4.grayc{
+    filter: unset;
+}
+#img5{
+    filter: grayscale(100%);
+}
+#img5.grayc{
+    filter: unset;
+}
+#img6{
+    filter: grayscale(100%);
+}
+#img6.grayc{
+    filter: unset;
+}
 .row{
     padding: 10px;
     overflow: hidden;
@@ -177,4 +183,53 @@
     width: 16.6%;
     float: left;
     text-align: center;
+}
+
+#koi{
+    text-align: center;
+    margin: 100px auto;
+    display: block;
+}
+#koi.visible{
+    display: none;
+}
+#mai{
+    text-align: center;
+    margin: 100px auto;
+    display: none;
+}
+#mai.visible{
+    display: block;
+}
+#eni{
+    text-align: center;
+    margin: 100px auto;
+    display: none;
+}
+#eni.visible{
+    display: block;
+}
+#hii{
+    text-align: center;
+    margin: 100px auto;
+    display: none;
+}
+#hii.visible{
+    display: block;
+}
+#soi{
+    text-align: center;
+    margin: 100px auto;
+    display: none;
+}
+#soi.visible{
+    display: block;
+}
+#sci{
+    text-align: center;
+    margin: 100px auto;
+    display: none;
+}
+#sci.visible{
+    display: block;
 }
