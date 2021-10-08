@@ -1,4 +1,4 @@
-windows.onload(){
+window.onload = function(){
 document.addEventListener('click', selectimg);
 
 function selectimg(e){
