@@ -22,7 +22,7 @@ urlpatterns = [
     path('mathboard/', include('mathboard.urls')),
     path('common/', include('common.urls')),
     path('', views.index, name='index'),
-    path('main/', views.mainpg,name='main'),
+    path('main/', views.mainpg, name='main'),
     # path('url명', 뷰에서.가져올 함수)
     #path('', views.index),
     #path('testpage/', views.test),

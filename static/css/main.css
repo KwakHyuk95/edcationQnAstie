@@ -3,21 +3,35 @@
     padding: 0;
 }
 .header{
-    border: 2px solid red;
-    height: 300px;
+    color: #FFF;
+    height: 500px;
+    background-image:url('../assets/mbgimg.jpg');
 }
-
+.tit{
+    background-color: block;
+    width: 650px;
+    height: 100px;
+    padding-top: 200px;
+    padding-left: 100px;
+}
 .main{
-    border: 2px solid violet;
     display: flex;
     justify-content: center;
     flex-direction: column;
+    background-color: #ECF0FA;
 }
 
 
 .footer{
-    border: 2px solid brown;
+    color:white;
+    background-color: #313A46;
     height: 80px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.footer p{
+    margin-right: 20px;
 }
 .intro{
     margin: 100px;
@@ -29,7 +43,6 @@
     
 .subject-section .sec-tit{
     width:90%;
-    max-width:1132px;
     margin:0 auto;
     margin-bottom:76px;
     text-align:left;
@@ -45,11 +58,14 @@
 
 .subject-section .subject-list li a{
     display:block;
+    background-color:white;
     position:relative;
     width:100%;
     height:300px;
     margin-left: 10px;
-    border: solid red;
+    overflow:hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.4);
 }
     
 .subject-section .subject-list li a:before{
@@ -133,7 +149,7 @@
     border-radius: 50%;
     overflow: hidden;
     margin: auto;
-    background-color: gray;
+    background-color: #EFEFF1;
 }
 .img-part .circleimg > img{
     width: 100px;

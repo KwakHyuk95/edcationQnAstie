@@ -1,3 +1,4 @@
+windows.onload(){
 document.addEventListener('click', selectimg);
 
 function selectimg(e){
@@ -45,23 +46,60 @@ function selectimg(e){
         img6.classList.remove('grayc');
     }
     if(elemId == 'img3'){
-        ci.classList.add('visible');
-        ai.classList.remove('visible');
-        di.classList.add('visible');
-        pi.classList.remove('visible');
+        koi.classList.add('visible');
+        mai.classList.remove('visible');
+        eni.classList.add('visible');
+        hii.classList.remove('visible');
+        soi.classList.remove('visible');
+        sci.classList.remove('visible');
         img1.classList.add('grayc');
         img2.classList.remove('grayc');
         img3.classList.add('grayc');
         img4.classList.remove('grayc');
+        img5.classList.remove('grayc');
+        img6.classList.remove('grayc');
     }
     if(elemId == 'img4'){
-        ci.classList.add('visible');
-        ai.classList.remove('visible');
-        di.classList.remove('visible');
-        pi.classList.add('visible');
+        koi.classList.add('visible');
+        mai.classList.remove('visible');
+        eni.classList.remove('visible');
+        hii.classList.add('visible');
+        soi.classList.remove('visible');
+        sci.classList.remove('visible');
         img1.classList.add('grayc');
         img2.classList.remove('grayc');
         img3.classList.remove('grayc');
         img4.classList.add('grayc');
+        img5.classList.remove('grayc');
+        img6.classList.remove('grayc');
     }
+    if(elemId == 'img5'){
+        koi.classList.add('visible');
+        mai.classList.remove('visible');
+        eni.classList.remove('visible');
+        hii.classList.remove('visible');
+        soi.classList.add('visible');
+        sci.classList.remove('visible');
+        img1.classList.add('grayc');
+        img2.classList.remove('grayc');
+        img3.classList.remove('grayc');
+        img4.classList.remove('grayc');
+        img5.classList.add('grayc');
+        img6.classList.remove('grayc');
+    }
+    if(elemId == 'img6'){
+        koi.classList.add('visible');
+        mai.classList.remove('visible');
+        eni.classList.remove('visible');
+        hii.classList.remove('visible');
+        soi.classList.remove('visible');
+        sci.classList.add('visible');
+        img1.classList.add('grayc');
+        img2.classList.remove('grayc');
+        img3.classList.remove('grayc');
+        img4.classList.remove('grayc');
+        img5.classList.remove('grayc');
+        img6.classList.add('grayc');
+    }
+}
 }
