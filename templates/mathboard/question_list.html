@@ -1,16 +1,22 @@
 {% extends 'base.html' %}
 {% load mathboard_filter %}
 {% block content %}
-<div class="container my-3">
+<style>
+    body{
+        background-color: #ECF0FA;
+    }
+</style>
+<div class="container my-5">
     <table class="table">
         <thead>
             <tr class="thead-dark">
                 <th>번호</th>
                 <th>제목</th>
+                <th>글쓴이</th>
                 <th>작성일자</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody class="bg-white">
         {% if question_list %}<!--분기 시작-->
         {% for question in question_list %}<!--반복 시작-->
             <tr>
@@ -19,13 +25,22 @@
                 번호 = 전체건수 - 시작인덱스 - 현재인덱스 + 1
                 -->
                 <td>{{ question_list.paginator.count|sub:question_list.start_index|sub:forloop.counter0|add:1 }}</td>
-                <td><a href="{% url 'mathboard:detail' question.id %}">{{question.subject}} </a></td>
+                <td><a href="{% url 'mathboard:detail' question.id %}">{{question.subject}}
+                    {% if question.mathanswer_set.count > 0 %}
+                    <span class="small ml-2">( {{ question.mathanswer_set.count }} )</span>
+                    {% endif %}
+                    </a>
+                </td>
+                <td>{{ question.author.username }}</td>
                 <td>{{question.create_date}}</td>
             </tr>
         {% endfor %}<!--반복 종료-->
         {% else %}
             <tr>
                 <td>질문이 없습니다.</td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
         {% endif %}<!--분기 종료-->
         </tbody>

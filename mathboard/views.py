@@ -4,8 +4,7 @@ from django.utils import timezone
 from .forms import QuestionForm, AnswerForm
 from django.core.paginator import Paginator
 from django.contrib.auth.decorators import login_required
-# 경로를 못찾을때에는 앞에 마침표를 찍어 같은 경로라는걸을 알려준다.
-from django.http import HttpResponse
+from django.contrib import messages
 # Create your views here.
 
 # 주석달기
@@ -44,33 +43,60 @@ def index(request):
     page_obj = paginator.get_page(page)
     context ={'question_list': page_obj}
     # 템플릿단에 던짐 / 변수에 담지않고 던져도 상관 X
-    return render(request, 'question_list.html', context) # render는 조회성
+    return render(request, 'mathboard/question_list.html', context) # render는 조회성
 
 
 def detail(request, question_id):
     # 글의 제목과 내용 출력
     question = Mathquestion.objects.get(id=question_id)
-    return render(request, 'question_detail.html', {'question': question})
+    return render(request, 'mathboard/question_detail.html', {'question': question})
 
 def mainpg(request):
     return render(request, 'main.html')
 
-# 21.09.23 답변 등록하기
-# 작성자: 곽혁
-# get_object_or_404 : 사용자에게 보여지는 에러 메세지 제어 함수
-#                     데이터의 유츌을 막기 위한 방법.
-# redirect : 페이지의 재 요청 데이터를 전송 후 페이지를 새로고침하기 위함
+def question_modify(request, question_id):
+    question = get_object_or_404(Mathquestion, pk=question_id)
+    if request.user != question.author:
+        messages.error(request, '수정권한이 없습니다.')
+        return redirect('mathboard:detail', question_id=question.id)
 
-# def answer_create(request, question_id):
-#     question = get_object_or_404(Question, pk=question_id)
-#     # 다음과 같은 방식이 가능했던 이유는 question, answer 모델이 외래키로 연결되어 있기 때문
-#     # question.answer_set.create(content=request.POST.get('content'), create_date=timezone.now())
-#     # answer 모델을 직접 사용하는 방법.
-#     answer = Answer(question=question, content=request.POST.get('content'), create_date=timezone.now())
-#     answer.save()
-#     return redirect('board:detail', question_id=question.id)
+    if request.method == "POST":
+        form = QuestionForm(request.POST, instance=question)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.modify_date = timezone.now()
+            question.save()
+            return redirect('mathboard:detail', question_id=question.id)
+    else:
+        form = QuestionForm(instance=question)
+    return render(request, 'mathboard/question_form.html', {'form': form})
 
-# 21.09.26 곽혁 질문답변기능 수정
+def question_delete(request, question_id):
+    question = get_object_or_404(Mathquestion, pk=question_id)
+    # 질문을 한 사람과 글을 작성한 사람이 같은지를 확인.
+    if request.user != question.author:
+        messages.error(request, '삭제권한이 없습니다.')
+        return redirect('mathboard:detail', question_id=question.id)
+    question.delete()
+    return redirect('mathboard:index')
+
+# @LOGIN_REQUIRED : 해당 함수가 로그인이 되어있는지를 확인하는 데코레이터
+#                   만약 로그인 되어있지 않다면 해당 url을 호출
+@login_required(login_url='common:login')
+def question_create(request):
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            question = form.save(commit=False)
+            question.author = request.user # request.user : 현재 로그인한 계정의
+                                           #                User모델 객체.
+            question.create_date = timezone.now()
+            question.save()
+            return redirect('mathboard:index')
+    else:
+        form = QuestionForm()
+    return render(request, 'mathboard/question_form.html', {'form': form})
+
 @login_required(login_url='common:login')
 def answer_create(request, question_id):
     question = get_object_or_404(Mathquestion, pk=question_id)
@@ -85,21 +111,52 @@ def answer_create(request, question_id):
             return redirect('mathboard:detail', question_id=question.id)
     else:
         form = AnswerForm()
-    return render(request, 'question_detail.html', {'question': question, 'form': form})
+    return render(request, 'mathboard/question_detail.html', {'question': question, 'form': form})
 
-# 21.09.24 곽혁 질문등록 기능 구현
 
-@login_required(login_url='common:login') # 해당함수를 실행하기전에 로그인유무를 확인 로그인을 안했을시 해당 url로 이동
-def question_create(request):
-    if request.method == 'POST':
-        form = QuestionForm(request.POST)
+
+@login_required(login_url='common:login')
+def answer_modify(request, answer_id):
+    answer = get_object_or_404(Mathanswer, pk=answer_id)
+    if request.user != answer.author:
+        messages.error(request, '수정권한이 없습니다')
+        return redirect('mathboard:detail', question_id=answer.question.id)
+
+    if request.method == "POST":
+        form = AnswerForm(request.POST, instance=answer)
         if form.is_valid():
-            question = form.save(commit=False)
-            # 21.10.01 곽혁 글쓴이 추가
-            question.author = request.user # request.user 현재 로그인한 계정의 User모델 객체
-            question.create_date = timezone.now()
-            question.save()
-            return redirect('mathboard:index')
+            answer = form.save(commit=False)
+            answer.modify_date = timezone.now()
+            answer.save()
+            return redirect('mathboard:detail', question_id=answer.question.id)
     else:
-        form = QuestionForm()
-    return render(request, 'mathboard/question_form.html', {'form': form})
+        form = AnswerForm(instance=answer)
+    context = {'answer': answer, 'form': form}
+    return render(request, 'mathboard/answer_form.html', context)
+
+@login_required(login_url='common:login')
+def answer_delete(request, answer_id):
+    answer = get_object_or_404(Mathanswer, pk=answer_id)
+    if request.user != answer.author:
+        messages.error(request, '삭제권한이 없습니다')
+    else:
+        answer.delete()
+    return redirect('mathboard:detail', question_id=answer.question.id)
+
+@login_required(login_url='common:login')
+def vote_question(request, question_id):
+    question = get_object_or_404(Mathquestion, pk=question_id)
+    if request.user == question.author:
+        messages.error(request, '본인이 작성한 글은 추천할수 없습니다')
+    else:
+        question.voter.add(request.user)
+    return redirect('mathboard:detail', question_id=question.id)
+
+@login_required(login_url='common:login')
+def vote_answer(request, answer_id):
+    answer = get_object_or_404(Mathanswer, pk=answer_id)
+    if request.user == answer.author:
+        messages.error(request, '본인이 작성한 글은 추천할수 없습니다')
+    else:
+        answer.voter.add(request.user)
+    return redirect('mathboard:detail', question_id=answer.question.id)

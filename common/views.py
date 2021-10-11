@@ -14,7 +14,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password) # 인증 정확한지 확인
             login(request, user) # 로그인 요청
-            return redirect('index')
+            return redirect('main')
     else:
         form = UserForm()
     return render(request, 'common/signup.html', {'form': form})
