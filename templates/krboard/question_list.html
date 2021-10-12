@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load mathboard_filter %}
+{% load krboard_filter %}
 {% block content %}
 <style>
     body{
@@ -47,9 +47,9 @@
                     <span class="badge badge-light px-2 py-1">{{ question.voter.all.count }}</span>
                     {% endif %}
                 </td>
-                <td><a href="{% url 'mathboard:detail' question.id %}">{{question.subject}}
-                    {% if question.mathanswer_set.count > 0 %}
-                    <span class="small ml-2">( {{ question.mathanswer_set.count }} )</span>
+                <td><a href="{% url 'krboard:detail' question.id %}">{{question.subject}}
+                    {% if question.kranswer_set.count > 0 %}
+                    <span class="small ml-2">( {{ question.kranswer_set.count }} )</span>
                     {% endif %}
                     </a>
                 </td>
@@ -113,9 +113,9 @@
         <!-- 다음 페이지 처리 끝 -->
     </ul>
     <!-- 페이징처리 끝 -->
-    <a href="{% url 'mathboard:question_create' %}" class="btn btn-primary">질문 등록하기</a>
+    <a href="{% url 'krboard:question_create' %}" class="btn btn-primary">질문 등록하기</a>
 </div>
-<form id="searchForm" method="get" action="{% url 'mathboard:index' %}">
+<form id="searchForm" method="get" action="{% url 'krboard:index' %}">
     <input type="hidden" id="kw" name="kw" value="{{ kw|default_if_none:'' }}">
     <input type="hidden" id="page" name="page" value="{{ page }}">
     <input type="hidden" id="so" name="so" value="{{ so }}">

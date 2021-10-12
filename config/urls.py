@@ -16,10 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from mathboard import views
+from krboard import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('mathboard/', include('mathboard.urls')),
+    path('krboard/', include('krboard.urls')),
     path('common/', include('common.urls')),
     path('', views.mainpg, name='main'),
     # path('url명', 뷰에서.가져올 함수)

@@ -12,7 +12,7 @@
              <div class="bg-light text-center p-3 border font-weight-bolder mb-1">
                  {{question.voter.count}}
              </div>
-             <a href="{% url 'mathboard:vote_question' question.id %}" data-uri="{% url 'mathboard:vote_question' question.id %}"
+             <a href="{% url 'krboard:vote_question' question.id %}" data-uri="{% url 'krboard:vote_question' question.id %}"
                 class="recommend btn btn-sm btn-secondary btn-block my-1">
                추천
              </a>
@@ -23,9 +23,9 @@
                 <div class="card-text" style="white-space: pre-line;">{{ question.content }}</div>
                 <div class="mt-3">
                     {% if request.user == question.author %}
-                    <a href="{% url 'mathboard:question_modify' question.id  %}"
+                    <a href="{% url 'krboard:question_modify' question.id  %}"
                        class="btn btn-sm btn-outline-secondary">수정</a>
-                    <a href="{% url 'mathboard:question_delete' question.id  %}" class="delete btn btn-sm btn-outline-secondary">삭제</a>
+                    <a href="{% url 'krboard:question_delete' question.id  %}" class="delete btn btn-sm btn-outline-secondary">삭제</a>
                     {% endif %}
                     {% if question.modify_date %}
                 <div class="d- flex badge p-2 text-left justify-content-end">
@@ -41,34 +41,34 @@
             </div>
         </div>
     </div>
-    <h5 class="border-bottom my-3 py-2">{{ question.mathanswer_set.count }}개의 답변이 있습니다.</h5>
-    {% for mathanswer in question.mathanswer_set.all %}
+    <h5 class="border-bottom my-3 py-2">{{ question.kranswer_set.count }}개의 답변이 있습니다.</h5>
+    {% for kranswer in question.kranswer_set.all %}
     <div class="row my-3">
     <div class="col-1">  <!-- 추천영역 -->
-        <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{ mathanswer.voter.count }}</div>
-        <a href="{% url 'mathboard:vote_answer' mathanswer.id  %}" data-uri="{% url 'mathboard:vote_answer' mathanswer.id  %}"
+        <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{ kranswer.voter.count }}</div>
+        <a href="{% url 'krboard:vote_answer' kranswer.id  %}" data-uri="{% url 'krboard:vote_answer' kranswer.id  %}"
             class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
     </div>
     <div class="col-11">  <!-- 답변영역 -->
     <div class="card">
         <div class="card-body">
-            <div class="card-text" style="white-space: pre-line;">{{ mathanswer.content }}</div>
+            <div class="card-text" style="white-space: pre-line;">{{ kranswer.content }}</div>
 
 
             <div class="mt-3">
-                {% if request.user == mathanswer.author %}
-                <a href="{% url 'mathboard:answer_modify' mathanswer.id  %}"
+                {% if request.user == kranswer.author %}
+                <a href="{% url 'krboard:answer_modify' kranswer.id  %}"
                    class="btn btn-sm btn-outline-secondary">수정</a>
-                <a href="{% url 'mathboard:answer_delete' mathanswer.id  %}" class="delete btn btn-sm btn-outline-secondary "
-                   data-uri="{% url 'mathboard:answer_delete' mathanswer.id  %}">삭제</a>
+                <a href="{% url 'krboard:answer_delete' kranswer.id  %}" class="delete btn btn-sm btn-outline-secondary "
+                   data-uri="{% url 'krboard:answer_delete' kranswer.id  %}">삭제</a>
                 {% endif %}
-                {% if mathanswer.modify_date %}
+                {% if kranswer.modify_date %}
                 <div class="badge p-2 text-left mx-3">
-                    <div class="mb-2">{{ mathanswer.author.username }} modified at {{ mathanswer.modify_date }}</div>
+                    <div class="mb-2">{{ kranswer.author.username }} modified at {{ kranswer.modify_date }}</div>
                 </div>
                 {% else %}
                 <div class="badge p-2 text-left">
-                    <div class="mb-2">{{ mathanswer.author.username }} {{ mathanswer.create_date }}</div>
+                    <div class="mb-2">{{ kranswer.author.username }} {{ kranswer.create_date }}</div>
                 </div>
                 {% endif %}
             </div>
@@ -78,7 +78,7 @@
         </div>
     </div>
     {% endfor %}
-    <form action="{% url 'mathboard:answer_create' question.id %}" method="post" class="my-3">
+    <form action="{% url 'krboard:answer_create' question.id %}" method="post" class="my-3">
         {% csrf_token %}
         {% if form.errors %}
         <div class="alert alert-danger" role="alert">

@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
     {% load static %}
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <script src="{% static 'js/mp.js' %}"></script>
     <div class="con">
         <div class="header">
@@ -19,10 +18,10 @@
                 <h2 class="sec-tit">과목 선택</h2>
                 <ul class="subject-list">
                     <li>
-                        <a href="">
+                        <a href="{% url 'krboard:index' %}">
                             <div class="info">
                                 <h3>국어</h3>
-                                <span>WEB/PRINT</span>
+                                <span>비문학, 문학 등</span>
                             </div>
                             <img src="{% static 'assets/ko.jpg' %}" alt="">
                         </a>
@@ -31,7 +30,7 @@
                         <a href="{% url 'mathboard:index' %}">
                             <div class="info">
                                 <h3>수학</h3>
-                                <span>WEB/PRINT</span>
+                                <span>미적분, 확률과 통계 등</span>
                             </div>
                             <img src="{% static 'assets/ma.jpg' %}" alt="">
                         </a>
@@ -40,7 +39,7 @@
                         <a href="">
                             <div class="info">
                                 <h3>영어</h3>
-                                <span>WEB/PRINT</span>
+                                <span>듣기, 독해 등</span>
                             </div>
                             <img src="{% static 'assets/en.jpg' %}" alt="">
                         </a>
@@ -49,7 +48,7 @@
                         <a href="">
                             <div class="info">
                                 <h3>한국사</h3>
-                                <span>WEB/PRINT</span>
+                                <span>전근대사, 대한민국의 발전 등</span>
                             </div>
                             <img src="{% static 'assets/hi.jpg' %}" alt="">
                         </a>
@@ -58,7 +57,7 @@
                         <a href="">
                             <div class="info">
                                 <h3>사회 탐구</h3>
-                                <span>WEB/PRINT</span>
+                                <span>경제, 정치와 법 등</span>
                             </div>
                             <img src="{% static 'assets/so.jpg' %}" alt="">
                         </a>
@@ -67,7 +66,7 @@
                         <a href="">
                             <div class="info">
                                 <h3>과학 탐구</h3>
-                                <span>WEB/PRINT</span>
+                                <span>물리학 화학 등</span>
                             </div>
                             <img src="{% static 'assets/sc.jpg' %}" alt="">
                         </a>
