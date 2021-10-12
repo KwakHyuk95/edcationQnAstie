@@ -44,7 +44,7 @@ def index(request):
         # voter(추천수)를 카운트 받아 저장후 정렬조건에 사용.
         question_list = Mathquestion.objects.annotate(num_voter=Count('voter')).order_by('-num_voter','-create_date')
     elif so =='popular':
-        question_list = Mathquestion.objects.annotate(num_answer=Count('mathanswer')).order_by('-num_mathanswer','-create_date')
+        question_list = Mathquestion.objects.annotate(num_answer=Count('mathanswer')).order_by('-num_answer','-create_date')
     else:
         question_list = Mathquestion.objects.order_by('-create_date')
 
@@ -53,7 +53,7 @@ def index(request):
             Q(subject__icontains=kw) | # __icontains : 컬럼의 조회조건 부여
             Q(content__icontains=kw) |
             Q(author__username__icontains=kw) |
-            Q(mathanswer__author__username__icontains=kw)
+            Q(answer__author__username__icontains=kw)
         ).distinct()
 
     # 페이징 처리 기능 구현

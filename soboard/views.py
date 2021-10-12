@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Krquestion, Kranswer
+from .models import Soquestion, Soanswer
 from django.utils import timezone
 from .forms import QuestionForm, AnswerForm
 from django.core.paginator import Paginator
@@ -38,15 +38,15 @@ def index(request):
     kw = request.GET.get('kw', '')
     so = request.GET.get('so', 'recent')
     # 조회
-    # question_list = Krquestion.objects.order_by('-create_date')
+    # question_list = Soquestion.objects.order_by('-create_date')
     if so == "recommend":
         # annotate = 기존의 모델에 임시로 속성을 부여하는 장고의 함수
         # voter(추천수)를 카운트 받아 저장후 정렬조건에 사용.
-        question_list = Krquestion.objects.annotate(num_voter=Count('voter')).order_by('-num_voter','-create_date')
+        question_list = Soquestion.objects.annotate(num_voter=Count('voter')).order_by('-num_voter','-create_date')
     elif so =='popular':
-        question_list = Krquestion.objects.annotate(num_answer=Count('kranswer')).order_by('-num_answer','-create_date')
+        question_list = Soquestion.objects.annotate(num_answer=Count('soanswer')).order_by('-num_answer','-create_date')
     else:
-        question_list = Krquestion.objects.order_by('-create_date')
+        question_list = Soquestion.objects.order_by('-create_date')
 
     if kw:
         question_list = question_list.filter(
@@ -61,22 +61,22 @@ def index(request):
     page_obj = paginator.get_page(page)
     context ={'question_list': page_obj}
     # 템플릿단에 던짐 / 변수에 담지않고 던져도 상관 X
-    return render(request, 'krboard/question_list.html', context) # render는 조회성
+    return render(request, 'soboard/question_list.html', context) # render는 조회성
 
 
 def detail(request, question_id):
     # 글의 제목과 내용 출력
-    question = Krquestion.objects.get(id=question_id)
-    return render(request, 'krboard/question_detail.html', {'question': question})
+    question = Soquestion.objects.get(id=question_id)
+    return render(request, 'soboard/question_detail.html', {'question': question})
 
 def mainpg(request):
     return render(request, 'main.html')
 
 def question_modify(request, question_id):
-    question = get_object_or_404(Krquestion, pk=question_id)
+    question = get_object_or_404(Soquestion, pk=question_id)
     if request.user != question.author:
         messages.error(request, '수정권한이 없습니다.')
-        return redirect('krboard:detail', question_id=question.id)
+        return redirect('soboard:detail', question_id=question.id)
 
     if request.method == "POST":
         form = QuestionForm(request.POST, instance=question)
@@ -84,19 +84,19 @@ def question_modify(request, question_id):
             question = form.save(commit=False)
             question.modify_date = timezone.now()
             question.save()
-            return redirect('krboard:detail', question_id=question.id)
+            return redirect('soboard:detail', question_id=question.id)
     else:
         form = QuestionForm(instance=question)
-    return render(request, 'krboard/question_form.html', {'form': form})
+    return render(request, 'soboard/question_form.html', {'form': form})
 
 def question_delete(request, question_id):
-    question = get_object_or_404(Krquestion, pk=question_id)
+    question = get_object_or_404(Soquestion, pk=question_id)
     # 질문을 한 사람과 글을 작성한 사람이 같은지를 확인.
     if request.user != question.author:
         messages.error(request, '삭제권한이 없습니다.')
-        return redirect('krboard:detail', question_id=question.id)
+        return redirect('soboard:detail', question_id=question.id)
     question.delete()
-    return redirect('krboard:index')
+    return redirect('soboard:index')
 
 # @LOGIN_REQUIRED : 해당 함수가 로그인이 되어있는지를 확인하는 데코레이터
 #                   만약 로그인 되어있지 않다면 해당 url을 호출
@@ -110,14 +110,14 @@ def question_create(request):
                                            #                User모델 객체.
             question.create_date = timezone.now()
             question.save()
-            return redirect('krboard:index')
+            return redirect('soboard:index')
     else:
         form = QuestionForm()
-    return render(request, 'krboard/question_form.html', {'form': form})
+    return render(request, 'soboard/question_form.html', {'form': form})
 
 @login_required(login_url='common:login')
 def answer_create(request, question_id):
-    question = get_object_or_404(Krquestion, pk=question_id)
+    question = get_object_or_404(Soquestion, pk=question_id)
     if request.method == "POST":
         form = AnswerForm(request.POST)
         if form.is_valid():
@@ -126,19 +126,19 @@ def answer_create(request, question_id):
             answer.question = question
             answer.create_date = timezone.now()
             answer.save()
-            return redirect('krboard:detail', question_id=question.id)
+            return redirect('soboard:detail', question_id=question.id)
     else:
         form = AnswerForm()
-    return render(request, 'krboard/question_detail.html', {'question': question, 'form': form})
+    return render(request, 'soboard/question_detail.html', {'question': question, 'form': form})
 
 
 
 @login_required(login_url='common:login')
 def answer_modify(request, answer_id):
-    answer = get_object_or_404(Kranswer, pk=answer_id)
+    answer = get_object_or_404(Soanswer, pk=answer_id)
     if request.user != answer.author:
         messages.error(request, '수정권한이 없습니다')
-        return redirect('krboard:detail', question_id=answer.question.id)
+        return redirect('soboard:detail', question_id=answer.question.id)
 
     if request.method == "POST":
         form = AnswerForm(request.POST, instance=answer)
@@ -146,35 +146,35 @@ def answer_modify(request, answer_id):
             answer = form.save(commit=False)
             answer.modify_date = timezone.now()
             answer.save()
-            return redirect('krboard:detail', question_id=answer.question.id)
+            return redirect('soboard:detail', question_id=answer.question.id)
     else:
         form = AnswerForm(instance=answer)
     context = {'answer': answer, 'form': form}
-    return render(request, 'krboard/answer_form.html', context)
+    return render(request, 'soboard/answer_form.html', context)
 
 @login_required(login_url='common:login')
 def answer_delete(request, answer_id):
-    answer = get_object_or_404(Kranswer, pk=answer_id)
+    answer = get_object_or_404(Soanswer, pk=answer_id)
     if request.user != answer.author:
         messages.error(request, '삭제권한이 없습니다')
     else:
         answer.delete()
-    return redirect('krboard:detail', question_id=answer.question.id)
+    return redirect('soboard:detail', question_id=answer.question.id)
 
 @login_required(login_url='common:login')
 def vote_question(request, question_id):
-    question = get_object_or_404(Krquestion, pk=question_id)
+    question = get_object_or_404(Soquestion, pk=question_id)
     if request.user == question.author:
         messages.error(request, '본인이 작성한 글은 추천할수 없습니다')
     else:
         question.voter.add(request.user)
-    return redirect('krboard:detail', question_id=question.id)
+    return redirect('soboard:detail', question_id=question.id)
 
 @login_required(login_url='common:login')
 def vote_answer(request, answer_id):
-    answer = get_object_or_404(Kranswer, pk=answer_id)
+    answer = get_object_or_404(Soanswer, pk=answer_id)
     if request.user == answer.author:
         messages.error(request, '본인이 작성한 글은 추천할수 없습니다')
     else:
         answer.voter.add(request.user)
-    return redirect('krboard:detail', question_id=answer.question.id)
+    return redirect('soboard:detail', question_id=answer.question.id)
