@@ -53,7 +53,7 @@ def index(request):
             Q(subject__icontains=kw) | # __icontains : 컬럼의 조회조건 부여
             Q(content__icontains=kw) |
             Q(author__username__icontains=kw) |
-            Q(answer__author__username__icontains=kw)
+            Q(hianswer__author__username__icontains=kw)
         ).distinct()
 
     # 페이징 처리 기능 구현

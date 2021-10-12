@@ -6,13 +6,17 @@
     }
 </style>
 <div class="container my-3">
-    <h2 class="border-bottom py-2">{{ question.subject }}</h2>
+    <h2 class="d-inline py-2">{{ question.subject }}</h2>
+    <div class="d-inline float-right mx-3">
+        <a href="{% url 'soboard:index' %}" class="btn btn-primary">게시판목록</a>
+    </div>
+    <h2 class="border-bottom my-3"></h2>
     <div class="row my-3">
         <div class="col-1">
              <div class="bg-light text-center p-3 border font-weight-bolder mb-1">
                  {{question.voter.count}}
              </div>
-             <a href="{% url 'soboard:vote_question' question.id %}" data-uri="{% url 'soboard:vote_question' question.id %}"
+             <a href="#" data-uri="{% url 'soboard:vote_question' question.id %}"
                 class="recommend btn btn-sm btn-secondary btn-block my-1">
                추천
              </a>
@@ -25,15 +29,16 @@
                     {% if request.user == question.author %}
                     <a href="{% url 'soboard:question_modify' question.id  %}"
                        class="btn btn-sm btn-outline-secondary">수정</a>
-                    <a href="{% url 'soboard:question_delete' question.id  %}" class="delete btn btn-sm btn-outline-secondary">삭제</a>
+                    <a href="#" class="delete btn btn-sm btn-outline-secondary"
+                    data-uri="{% url 'soboard:question_delete' question.id  %}">삭제</a>
                     {% endif %}
                     {% if question.modify_date %}
                 <div class="d- flex badge p-2 text-left justify-content-end">
-                    <div>{{ question.author.username }} modified at {{ question.modify_date }}</div>
+                    <div>{{ question.author.first_name }} modified at {{ question.modify_date }}</div>
                 </div>
                 {% else %}
                 <div class="d- flex badge p-2 text-left justify-content-end">
-                    <div>{{ question.author.username }} {{ question.create_date }}</div>
+                    <div>{{ question.author.first_name }} {{ question.create_date }}</div>
                 </div>
                     {% endif %}
                 </div>
@@ -46,7 +51,7 @@
     <div class="row my-3">
     <div class="col-1">  <!-- 추천영역 -->
         <div class="bg-light text-center p-3 border font-weight-bolder mb-1">{{ soanswer.voter.count }}</div>
-        <a href="{% url 'soboard:vote_answer' soanswer.id  %}" data-uri="{% url 'soboard:vote_answer' soanswer.id  %}"
+        <a href="#" data-uri="{% url 'soboard:vote_answer' soanswer.id  %}"
             class="recommend btn btn-sm btn-secondary btn-block my-1">추천</a>
     </div>
     <div class="col-11">  <!-- 답변영역 -->
@@ -59,16 +64,16 @@
                 {% if request.user == soanswer.author %}
                 <a href="{% url 'soboard:answer_modify' soanswer.id  %}"
                    class="btn btn-sm btn-outline-secondary">수정</a>
-                <a href="{% url 'soboard:answer_delete' soanswer.id  %}" class="delete btn btn-sm btn-outline-secondary "
+                <a href="#" class="delete btn btn-sm btn-outline-secondary "
                    data-uri="{% url 'soboard:answer_delete' soanswer.id  %}">삭제</a>
                 {% endif %}
                 {% if soanswer.modify_date %}
                 <div class="badge p-2 text-left mx-3">
-                    <div class="mb-2">{{ soanswer.author.username }} modified at {{ soanswer.modify_date }}</div>
+                    <div class="mb-2">{{ soanswer.author.first_name }} modified at {{ soanswer.modify_date }}</div>
                 </div>
                 {% else %}
                 <div class="badge p-2 text-left">
-                    <div class="mb-2">{{ soanswer.author.username }} {{ soanswer.create_date }}</div>
+                    <div class="mb-2">{{ soanswer.author.first_name }} {{ soanswer.create_date }}</div>
                 </div>
                 {% endif %}
             </div>

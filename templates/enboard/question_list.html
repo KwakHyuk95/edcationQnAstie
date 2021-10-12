@@ -7,12 +7,15 @@
     }
 </style>
 <div class="container my-5">
+    <h4 class="row ml-3">
+    영어 게시판
+    </h4>
     <div class="row justify-content-between my-3">
         <div class="col-2">
             <select class="form-control so">
                 <option value="recent" {% if so == 'recent' %}selected{% endif %} >최신순</option>
                 <option value="recommend" {% if so == 'recommend' %}selected{% endif%} >추천순</option>
-                <option value="popular" {% if so == 'popular' %}selected{% endif %}>인기순</option>
+                <option value="popular" {% if so == 'popular' %}selected{% endif %}>답변순</option>
             </select>
         </div>
         <div class="col-4 input-group">
@@ -53,7 +56,7 @@
                     {% endif %}
                     </a>
                 </td>
-                <td>{{ question.author.username }}</td>
+                <td>{{ question.author.first_name }}</td>
                 <td>{{question.create_date}}</td>
             </tr>
         {% endfor %}<!--반복 종료-->

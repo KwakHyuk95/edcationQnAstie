@@ -53,15 +53,14 @@ def index(request):
             Q(subject__icontains=kw) | # __icontains : 컬럼의 조회조건 부여
             Q(content__icontains=kw) |
             Q(author__username__icontains=kw) |
-            Q(answer__author__username__icontains=kw)
+            Q(kranswer__author__username__icontains=kw)
         ).distinct()
 
     # 페이징 처리 기능 구현
     paginator = Paginator(question_list, 10)  # 페이지당 10개씩
     page_obj = paginator.get_page(page)
-    context ={'question_list': page_obj}
-    # 템플릿단에 던짐 / 변수에 담지않고 던져도 상관 X
-    return render(request, 'krboard/question_list.html', context) # render는 조회성
+    context = {'question_list': page_obj, 'page': page, 'kw': kw, 'so': so}
+    return render(request, 'krboard/question_list.html', context)
 
 
 def detail(request, question_id):
