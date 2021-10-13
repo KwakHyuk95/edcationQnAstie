@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'suit',
     'common.apps.CommonConfig',
     'mathboard.apps.MathboardConfig',
     'krboard.apps.KrboardConfig',
