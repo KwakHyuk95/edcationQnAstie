@@ -52,8 +52,8 @@ def index(request):
         question_list = question_list.filter(
             Q(subject__icontains=kw) | # __icontains : 컬럼의 조회조건 부여
             Q(content__icontains=kw) |
-            Q(author__username__icontains=kw) |
-            Q(kranswer__author__username__icontains=kw)
+            Q(author__first_name__icontains=kw) |
+            Q(kranswer__author__first_name__icontains=kw)
         ).distinct()
 
     # 페이징 처리 기능 구현
