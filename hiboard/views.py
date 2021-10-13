@@ -61,7 +61,7 @@ def index(request):
     page_obj = paginator.get_page(page)
     context ={'question_list': page_obj}
     context = {'question_list': page_obj, 'page': page, 'kw': kw, 'so': so}
-    return render(request, 'krboard/question_list.html', context)
+    return render(request, 'hiboard/question_list.html', context)
 
 
 def detail(request, question_id):
